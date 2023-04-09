@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_navigation"
+    app:startDestination="@id/fragment_main_page">
+
+    <fragment
+        android:id="@+id/fragment_main_page"
+        android:name="com.example.digitalden.ui.main.mainPage.FragMainPage"
+        android:label="FragMainPage"
+        tools:layout="@layout/fragment_main_page"
+         />
+    <fragment
+        android:id="@+id/fragment_free_giveaways"
+        android:name="com.example.digitalden.ui.main.freeGame.FragFreeGiveaways"
+        android:label="FragFreeGiveaways"
+        tools:layout="@layout/fragment_free_giveaways" />
+    <fragment
+        android:id="@+id/fragment_favourite"
+        android:name="com.example.digitalden.ui.main.favourite.FragFavourite"
+        android:label="FragFavourite"
+        tools:layout="@layout/fragment_favourite" />
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="com.example.digitalden.ui.main.profile.FragProfile"
+        android:label="FragProfile"
+        tools:layout="@layout/fragment_profile" />
+
+
+</navigation>

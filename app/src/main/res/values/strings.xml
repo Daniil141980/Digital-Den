@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Digital Den</string>
+    <string name="profile">Профиль</string>
+    <string name="settings">Настройки</string>
+    <string name="subscribe">Подписка</string>
+    <string name="about_application">О приложении</string>
+    <string name="example_name_game">Horizon zero dawn</string>
+    <string name="favourite">Избранное</string>
+    <string name="distribution">Раздачи</string>
+    <string name="main">Главная</string>
 </resources>
