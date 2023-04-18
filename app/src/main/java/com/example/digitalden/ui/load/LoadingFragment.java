@@ -33,6 +33,9 @@ public class LoadingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        NavHostFragment.findNavController(this).navigate(R.id.action_loadingFragment_to_mainFragment);
+        viewModel.load();
+        viewModel.getLiveData().observe(getViewLifecycleOwner(), b -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_loadingFragment_to_mainFragment);
+        });
     }
 }

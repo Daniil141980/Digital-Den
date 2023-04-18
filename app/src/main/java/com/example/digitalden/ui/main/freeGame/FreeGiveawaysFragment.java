@@ -9,10 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.digitalden.R;
 import com.example.digitalden.databinding.FragmentFreeGiveawaysBinding;
 
-public class FragFreeGiveaways extends Fragment {
+public class FreeGiveawaysFragment extends Fragment {
     private FragmentFreeGiveawaysBinding binding;
 
     @Nullable

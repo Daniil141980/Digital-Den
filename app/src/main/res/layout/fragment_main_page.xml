@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ui.main.mainPage.FragMainPage">
+    android:background="@color/gray_300"
+    tools:context=".ui.main.mainPage.MainPageFragment">
 
     <android.widget.SearchView
         android:layout_marginTop="16dp"

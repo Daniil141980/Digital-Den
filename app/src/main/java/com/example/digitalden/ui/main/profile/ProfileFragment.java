@@ -14,7 +14,7 @@ import androidx.navigation.fragment.NavHostFragment;
 import com.example.digitalden.R;
 import com.example.digitalden.databinding.FragmentProfileBinding;
 
-public class FragProfile extends Fragment {
+public class ProfileFragment extends Fragment {
     private FragmentProfileBinding binding;
     private ProfileViewModel viewModel;
 
@@ -29,6 +29,15 @@ public class FragProfile extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentProfileBinding.inflate(inflater);
+        binding.topConstraintLay.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_profileFragment_to_signInFragment);});
+        binding.settingsBtn.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_profileFragment_to_settingsFragment);});
+        binding.subscriptionBtn.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_profileFragment_to_subscribeFragment);});
+        binding.aboutAppBtn.setOnClickListener(v -> {
+            NavHostFragment.findNavController(this).navigate(R.id.action_profileFragment_to_aboutAppFragment);});
+
         return binding.getRoot();
     }
 }

@@ -8,4 +8,8 @@
     <string name="favourite">Избранное</string>
     <string name="distribution">Раздачи</string>
     <string name="main">Главная</string>
+    <string name="Buy">Купить</string>
+    <string name="card">Карта</string>
+    <string name="pay">Оплатить</string>
+    <string name="sort">Сортировка</string>
 </resources>

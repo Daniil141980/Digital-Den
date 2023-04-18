@@ -7,25 +7,141 @@
 
     <fragment
         android:id="@+id/fragment_main_page"
-        android:name="com.example.digitalden.ui.main.mainPage.FragMainPage"
+        android:name="com.example.digitalden.ui.main.mainPage.MainPageFragment"
         android:label="FragMainPage"
-        tools:layout="@layout/fragment_main_page"
-         />
+        tools:layout="@layout/fragment_main_page">
+        <action
+            android:id="@+id/action_mainPageFragment_to_sortingMainFragment"
+            app:destination="@id/fragment_sorting_for_main"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_sorting_for_main"
+        android:name="com.example.digitalden.ui.main.sort.mainPage.SortingMainFragment"
+        android:label="SortingMainFragment"
+        tools:layout="@layout/fragment_sorting">
+        <action
+            android:id="@+id/action_sortMainFragment_to_mainPageFragment"
+            app:destination="@id/fragment_main_page"/>
+    </fragment>
     <fragment
         android:id="@+id/fragment_free_giveaways"
-        android:name="com.example.digitalden.ui.main.freeGame.FragFreeGiveaways"
+        android:name="com.example.digitalden.ui.main.freeGame.FreeGiveawaysFragment"
         android:label="FragFreeGiveaways"
         tools:layout="@layout/fragment_free_giveaways" />
     <fragment
         android:id="@+id/fragment_favourite"
-        android:name="com.example.digitalden.ui.main.favourite.FragFavourite"
+        android:name="com.example.digitalden.ui.main.favourite.FavouriteFragment"
         android:label="FragFavourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/fragment_favourite">
+        <action
+            android:id="@+id/action_favouriteFragment_to_sortingFavFragment"
+            app:destination="@id/fragment_sorting_for_favourite"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_sorting_for_favourite"
+        android:name="com.example.digitalden.ui.main.sort.favourite.SortingFavouriteFragment"
+        android:label="SortingFavouriteFragment"
+        tools:layout="@layout/fragment_sorting">
+        <action
+            android:id="@+id/action_sortFavouriteFragment_to_favouriteFragment"
+            app:destination="@id/fragment_favourite"/>
+    </fragment>
     <fragment
         android:id="@+id/fragment_profile"
-        android:name="com.example.digitalden.ui.main.profile.FragProfile"
+        android:name="com.example.digitalden.ui.main.profile.ProfileFragment"
         android:label="FragProfile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_signInFragment"
+            app:destination="@id/fragment_sign_in"/>
+        <action
+            android:id="@+id/action_profileFragment_to_settingsFragment"
+            app:destination="@id/settings_fragment"/>
+        <action
+            android:id="@+id/action_profileFragment_to_subscribeFragment"
+            app:destination="@id/subscribe_fragment"/>
+        <action
+            android:id="@+id/action_profileFragment_to_aboutAppFragment"
+            app:destination="@id/about_app_fragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_sign_in"
+        android:name="com.example.digitalden.ui.main.profile.account.signin.SignInFragment"
+        android:label="SignInFragment"
+        tools:layout="@layout/fragment_sign_in">
+        <action
+            android:id="@+id/action_signInFragment_to_profileFragment"
+            app:destination="@id/fragment_profile"/>
+        <action
+            android:id="@+id/action_signInFragment_to_signUpFragment"
+            app:destination="@id/fragment_sign_up"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_sign_up"
+        android:name="com.example.digitalden.ui.main.profile.account.signup.SignUpFragment"
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_profileFragment"
+            app:destination="@id/fragment_profile"/>
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment"
+            app:destination="@id/fragment_sign_in"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/settings_fragment"
+        android:name="com.example.digitalden.ui.main.profile.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_profileFragment"
+            app:destination="@id/fragment_profile" />
+    </fragment>
+    <fragment
+        android:id="@+id/subscribe_fragment"
+        android:name="com.example.digitalden.ui.main.profile.settings.subscribe.SubscribeFragment"
+        android:label="SubscribeFragment"
+        tools:layout="@layout/fragment_subscribe">
+        <action
+            android:id="@+id/action_subscribeFragment_to_profileFragment"
+            app:destination="@id/fragment_profile" />
+        <action
+            android:id="@+id/action_subscribeFragment_to_cardFragment"
+            app:destination="@id/card_fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/about_app_fragment"
+        android:name="com.example.digitalden.ui.main.profile.aboutApp.AboutAppFragment"
+        android:label="AboutAppFragment"
+        tools:layout="@layout/fragment_about_app">
+        <action
+            android:id="@+id/action_aboutAppFragment_to_profileFragment"
+            app:destination="@id/fragment_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/card_fragment"
+        android:name="com.example.digitalden.ui.main.profile.settings.subscribe.card.CardFragment"
+        android:label="CardFragment"
+        tools:layout="@layout/fragment_card">
+        <action
+            android:id="@+id/action_cardFragment_to_subscribeFragment"
+            app:destination="@id/subscribe_fragment" />
+        <action
+            android:id="@+id/action_cardFragment_to_okFragment"
+            app:destination="@id/ok_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ok_fragment"
+        android:name="com.example.digitalden.ui.main.profile.settings.subscribe.card.ok.OkFragment"
+        android:label="OkFragment"
+        tools:layout="@layout/fragment_ok">
+        <action
+            android:id="@+id/action_okFragment_to_profileFragment"
+            app:destination="@id/fragment_profile" />
+    </fragment>
 
 
 </navigation>
