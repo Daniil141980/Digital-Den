@@ -7,26 +7,22 @@ import androidx.room.PrimaryKey;
 
 import com.example.digitalden.data.models.Item;
 
-@Entity(tableName = "game_table")
-public class ItemEntity {
+@Entity(tableName = "fav_table")
+public class FavouriteEntity {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
     @ColumnInfo(name = "name_game")
     private String nameGame;
 
-    public ItemEntity() {}
+    public FavouriteEntity() {}
 
-    public ItemEntity(@NonNull String value) {
+    public FavouriteEntity(@NonNull String value) {
         this.nameGame = value;
     }
 
     @NonNull
     public String getNameGame() {
         return this.nameGame;
-    }
-
-    public void setNameGame(String nameGame) {
-        this.nameGame = nameGame;
     }
 }
