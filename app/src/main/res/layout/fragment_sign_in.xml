@@ -66,6 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/button_shape_sel"
+            app:backgroundTint="@null"
             android:text="Вход"
             android:textAllCaps="false"
             android:textSize="16sp"
@@ -78,6 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:background="@drawable/button_shape_unsel"
+            app:backgroundTint="@null"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="Регистрация"
@@ -125,6 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/button_shape_sel"
+        app:backgroundTint="@null"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
 

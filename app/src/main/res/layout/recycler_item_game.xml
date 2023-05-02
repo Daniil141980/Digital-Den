@@ -48,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_rounded"
+        app:backgroundTint="@null"
         android:fontFamily="@font/fonts_serif"
         android:gravity="center"
         android:text="Sale 10%"
@@ -57,7 +58,8 @@
         app:layout_constraintBottom_toTopOf="@id/base_price"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/image_game"
-        app:layout_constraintTop_toBottomOf="@id/favourite_btn" />
+        app:layout_constraintTop_toBottomOf="@id/favourite_btn"
+        />
 
     <TextView
         android:id="@+id/base_price"
