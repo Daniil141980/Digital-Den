@@ -1,4 +1,4 @@
-package com.example.digitalden.data.data_sources.room.root;
+package com.example.digitalden.data.data_sources.room;
 
 import android.content.Context;
 

@@ -57,7 +57,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.6.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1'
     implementation 'com.google.android.material:material:1.8.0'
-    implementation 'com.google.firebase:firebase-firestore:24.5.0'
+    implementation 'com.google.firebase:firebase-firestore:24.6.0'
     implementation 'com.google.firebase:firebase-auth'
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
     implementation platform('com.google.firebase:firebase-bom:31.3.0')
@@ -78,5 +78,8 @@ dependencies {
     androidTestImplementation ("androidx.test.espresso:espresso-core:$rootProject.espressoVersion", {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation("com.google.guava:guava:31.1-android")
 
 }

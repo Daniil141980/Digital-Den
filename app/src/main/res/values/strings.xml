@@ -12,4 +12,6 @@
     <string name="card">Карта</string>
     <string name="pay">Оплатить</string>
     <string name="sort">Сортировка</string>
+    <string name="steam">Steam</string>
+    <string name="egs">EGS</string>
 </resources>

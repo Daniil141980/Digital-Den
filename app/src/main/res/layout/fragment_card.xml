@@ -86,14 +86,17 @@
 
     <Button
         android:id="@+id/pay_btn"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:text="@string/pay"
         android:layout_margin="100dp"
-        android:background="@drawable/background_card"
-        app:backgroundTint="@null"/>
+        android:background="@drawable/back_btn_buy"
+        android:text="@string/pay"
+        android:fontFamily="@font/neoneon"
+        android:textStyle="bold"
+        android:textColor="@color/gray_300"
+        android:textSize="20sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

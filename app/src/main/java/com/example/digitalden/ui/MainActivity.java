@@ -1,4 +1,4 @@
-package com.example.digitalden;
+package com.example.digitalden.ui;
 
 import android.os.Bundle;
 

@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.profile.settings.subscribe.SubscribeFragment"
-    android:background="@color/gray_300">
+    android:background="@color/gray_300"
+    tools:context="ui.main.gamepage.GamePageFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_panel"
@@ -15,10 +14,12 @@
         android:padding="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/image_game"
+        android:layout_marginBottom="4dp">
 
         <ImageView
-            android:id="@+id/back"
+            android:id="@+id/back_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/back"
@@ -30,6 +31,7 @@
             android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
             android:src="@drawable/favorite_for_click_disabled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,121 +40,182 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_marginEnd="16dp"
             android:src="@drawable/no_interesting_disabled"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/imageView4"
-            app:layout_constraintHorizontal_bias="0.9"
-            app:layout_constraintStart_toEndOf="@+id/back"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintHorizontal_bias="1"
+            app:layout_constraintStart_toEndOf="@+id/back_btn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/image_game"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="240dp"
         android:src="@drawable/img_example"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/top_panel" />
+        app:layout_constraintTop_toBottomOf="@id/top_panel"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/nameGame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/neoneon"
+        android:gravity="start"
+        android:paddingStart="8dp"
+        android:textFontWeight="800"
+        android:text="@string/example_name_game"
+        android:textColor="@color/sea_100"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/image_game" />
+
+    <TextView
+        android:id="@+id/about_game"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_margin="8dp"
+        android:fontFamily="@font/fonts_sans"
+        android:gravity="start"
+        android:text="sdfsdfsdfsdfs"
+        android:textColor="@color/sea_100"
+
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameGame" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        app:layout_constraintVertical_bias="0.1">
+        app:layout_constraintTop_toBottomOf="@+id/about_game"
+        app:layout_constraintVertical_bias="0.2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/settings_btn"
+            android:id="@+id/steam_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginBottom="20dp"
-            android:background="@color/blue_700"
-            app:layout_constraintBottom_toTopOf="@id/subscription_btn"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/background_card"
+            app:layout_constraintBottom_toTopOf="@id/egs_layout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
             <TextView
-                android:id="@+id/text_settings"
+                android:id="@+id/steam_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/neoneon"
+                android:textFontWeight="1000"
+                android:padding="12dp"
+                android:text="@string/steam"
+                android:textColor="@color/gray_300"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/steam_price"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/sans_regular"
-                android:text="@string/settings"
-                android:textColor="@color/black_500"
-                android:textSize="12pt"
+                android:padding="4dp"
+                android:text="1000 Р"
+                android:textColor="@color/gray_300"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/steam_buy_btn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/steam_buy_btn"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/background_btn_item_game"
+                android:fontFamily="@font/neoneon"
+                android:gravity="center"
+                android:text="@string/Buy"
+                android:textColor="@color/sea_100"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/subscription_btn"
+            android:id="@+id/egs_layout"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginBottom="20dp"
-            android:background="@color/blue_700"
-            app:layout_constraintBottom_toTopOf="@+id/about_app_btn"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/settings_btn">
-
-
-            <TextView
-                android:id="@+id/text_subscription"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:fontFamily="@font/sans_regular"
-                android:text="@string/subscribe"
-                android:textColor="@color/black_500"
-                android:textSize="12pt"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/about_app_btn"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@color/blue_700"
+            android:background="@drawable/background_card"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/subscription_btn">
-
+            app:layout_constraintTop_toBottomOf="@+id/steam_layout">
 
             <TextView
-                android:id="@+id/text_about_app"
+                android:id="@+id/egs_text"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/neoneon"
+                android:textFontWeight="1000"
+                android:padding="12dp"
+                android:text="@string/egs"
+                android:textColor="@color/gray_300"
+                android:textSize="28sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/egs_price"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="16dp"
                 android:fontFamily="@font/sans_regular"
-                android:text="@string/about_application"
-                android:textColor="@color/black_500"
-                android:textSize="12pt"
+                android:padding="4dp"
+                android:text="1000 Р"
+                android:textColor="@color/gray_300"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/egs_buy_btn"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/egs_buy_btn"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/background_btn_item_game"
+                android:fontFamily="@font/neoneon"
+                android:gravity="center"
+                android:text="@string/Buy"
+                android:textColor="@color/sea_100"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
 

@@ -13,6 +13,18 @@
         <action
             android:id="@+id/action_mainPageFragment_to_sortingMainFragment"
             app:destination="@id/fragment_sorting_for_main"/>
+        <action
+            android:id="@+id/action_mainPageFragment_to_gamePageFragment"
+            app:destination="@id/fragment_game_page"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_game_page"
+        android:name="com.example.digitalden.ui.main.gamepage.GamePageFragment"
+        android:label="FragGamePage"
+        tools:layout="@layout/fragment_game_page">
+        <action
+            android:id="@+id/action_gamePageFragment_to_mainPageFragment"
+            app:destination="@id/fragment_main_page"/>
     </fragment>
     <fragment
         android:id="@+id/fragment_sorting_for_main"
