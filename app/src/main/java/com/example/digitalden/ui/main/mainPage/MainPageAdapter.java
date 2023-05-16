@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.digitalden.R;
+import com.example.digitalden.data.data_sources.room.entites.FavouriteEntity;
 import com.example.digitalden.data.data_sources.room.entites.ItemEntity;
 import com.example.digitalden.data.models.Item;
 import com.example.digitalden.data.models.LeadersSales;
@@ -32,12 +33,17 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class MainPageAdapter extends ListAdapter<Items, MainPageAdapter.MainPageViewHolder> {
     private OnItemClickListener listenerFav;
     private OnItemClickListener listenerElement;
+    private LiveData<List<FavouriteEntity>> gameFromDatabase;
+    private Set<Integer> gameId;
 
-
+    public void setGameId(Set<Integer> gameId) {
+        this.gameId = gameId;
+    }
 
     public MainPageAdapter(@NonNull DiffUtil.ItemCallback<Items> diffCallback) {
         super(diffCallback);
@@ -78,20 +84,31 @@ public class MainPageAdapter extends ListAdapter<Items, MainPageAdapter.MainPage
                 liveData.removeObserver(this);
             }
         });
-
+        if (gameId.contains(current.getId())){
+            holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_for_click_abled);
+        } else {
+            holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_for_click_disabled);
+        }
+        holder.binding.recyclerItem.setOnClickListener(v -> {
+            if (listenerElement != null) {
+                listenerElement.onClick(current);
+            }
+        });
         holder.binding.buyBtn.setOnClickListener(v -> {
             if (listenerElement != null) {
                 listenerElement.onClick(current);
             }
         });
-
-//        ItemEntity current = getItem(position);
-//        holder.binding.titleGame.setText(current.getNameGame());
-//        holder.binding.buyBtn.setOnClickListener(v -> {
-//            if (listenerElement != null) {
-//                listenerElement.onClick(current);
-//            }
-//        });
+        holder.binding.favouriteBtn.setOnClickListener(v -> {
+            if (listenerFav != null) {
+                listenerFav.onClick(current);
+                if (gameId.contains(current.getId())){
+                    holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_for_click_disabled);
+                } else {
+                    holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_for_click_abled);
+                }
+            }
+        });
 
     }
 
@@ -122,19 +139,6 @@ public class MainPageAdapter extends ListAdapter<Items, MainPageAdapter.MainPage
             return oldItem.getName().equals(newItem.getName());
         }
     }
-
-//    static class WordDiff extends DiffUtil.ItemCallback<ItemEntity> {
-//
-//        @Override
-//        public boolean areItemsTheSame(@NonNull ItemEntity oldItem, @NonNull ItemEntity newItem) {
-//            return oldItem == newItem;
-//        }
-//
-//        @Override
-//        public boolean areContentsTheSame(@NonNull ItemEntity oldItem, @NonNull ItemEntity newItem) {
-//            return oldItem.getNameGame().equals(newItem.getNameGame());
-//        }
-//    }
 
 
     public interface OnItemClickListener {

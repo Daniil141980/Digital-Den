@@ -25,6 +25,7 @@ import com.example.digitalden.ui.main.gamepage.GamePageViewModel;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class GamePageFragment extends Fragment {
     private FragmentGamePageBinding binding;
@@ -41,7 +42,7 @@ public class GamePageFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Bundle bundle = this.getArguments();
-        binding = FragmentGamePageBinding.inflate(inflater, container, false);
+        binding = FragmentGamePageBinding.inflate(inflater);
         binding.nameGame.setText(bundle.getString("name_game"));
         binding.steamPrice.setText(bundle.getString("price") + "Р");
         LiveData<Bitmap> liveData = getImage(bundle.getString("url"));
@@ -52,12 +53,32 @@ public class GamePageFragment extends Fragment {
                 liveData.removeObserver(this);
             }
         });
+
+        ArrayList<Integer> arr = new ArrayList<>();
+        arr.add(bundle.getInt("id"));
+        viewModel.setAboutGame(arr);
+        viewModel.getAboutGame().observe(getViewLifecycleOwner(), games -> {
+            if (games.get(0).getSuccess()){
+                binding.aboutGame.setText(games.get(0).getData().getShort_description());
+            }
+            else {
+                binding.aboutGame.setText("Very interesting game!");
+            }
+        });
+
         binding.steamBuyBtn.setOnClickListener(v -> {
-            String ur = "https://store.steampowered.com/app/" + bundle.getString("url_game");
+            String ur = "https://store.steampowered.com/app/" + Integer.toString(bundle.getInt("id"));
             Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(ur));
         v.getContext().startActivity(intent);});;
         binding.backBtn.setOnClickListener(v -> {
-            NavHostFragment.findNavController(this).navigate(R.id.action_gamePageFragment_to_mainPageFragment);});
+            if(bundle.getInt("where") == 1) {
+                NavHostFragment.findNavController(this).navigate(R.id.action_gamePageFragment_to_mainPageFragment);
+            }
+            else {
+                NavHostFragment.findNavController(this).navigate(R.id.action_gamePageFragment_to_favouriteFragment);
+            }
+            });
+
         return binding.getRoot();
     }
 
