@@ -1,5 +1,6 @@
 package com.example.digitalden.data.data_sources.api.steam;
 
+import com.example.digitalden.data.data_sources.api.steam.service.SteamAllGamesService;
 import com.example.digitalden.data.data_sources.api.steam.service.SteamService;
 import com.example.digitalden.data.models.OneGame;
 import com.example.digitalden.data.utils.OneGameDeserializer;
@@ -14,13 +15,21 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SteamApiRetrofit {
     private static volatile SteamApiRetrofit INSTANCE;
     private static final String URL = "https://store.steampowered.com/";
+    private static final String URLALLGAMES = "https://api.steampowered.com/";
 
     private final Retrofit retrofit;
+    private final Retrofit retrofitForAllGames;
 
 
     public SteamApiRetrofit() {
         retrofit = new Retrofit.Builder()
                 .baseUrl(URL)
+                .addConverterFactory(GsonConverterFactory
+                        .create(new GsonBuilder().registerTypeAdapter(new TypeToken<List<OneGame>>() {
+                        }.getType(), new OneGameDeserializer()).create()))
+                .build();
+        retrofitForAllGames = new Retrofit.Builder()
+                .baseUrl(URLALLGAMES)
                 .addConverterFactory(GsonConverterFactory
                         .create(new GsonBuilder().registerTypeAdapter(new TypeToken<List<OneGame>>() {
                         }.getType(), new OneGameDeserializer()).create()))
@@ -40,5 +49,8 @@ public class SteamApiRetrofit {
 
     public SteamService getService() {
         return retrofit.create(SteamService.class);
+    }
+    public SteamAllGamesService getServiceForAllGames() {
+        return retrofitForAllGames.create(SteamAllGamesService.class);
     }
 }

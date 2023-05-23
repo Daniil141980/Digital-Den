@@ -8,7 +8,7 @@
     android:background="@color/gray_300"
     tools:context=".ui.main.mainPage.MainPageFragment">
 
-    <android.widget.SearchView
+    <androidx.appcompat.widget.SearchView
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:id="@+id/search_game"

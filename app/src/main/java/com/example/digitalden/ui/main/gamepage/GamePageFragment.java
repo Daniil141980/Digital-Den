@@ -44,7 +44,7 @@ public class GamePageFragment extends Fragment {
         Bundle bundle = this.getArguments();
         binding = FragmentGamePageBinding.inflate(inflater);
         binding.nameGame.setText(bundle.getString("name_game"));
-        binding.steamPrice.setText(bundle.getString("price") + "Р");
+        binding.steamPrice.setText(bundle.getString("price") + " ₽");
         LiveData<Bitmap> liveData = getImage(bundle.getString("url"));
         liveData.observeForever(new Observer<Bitmap>() {
             @Override
@@ -56,10 +56,24 @@ public class GamePageFragment extends Fragment {
 
         ArrayList<Integer> arr = new ArrayList<>();
         arr.add(bundle.getInt("id"));
+
+
+        final String[] slug = {""};
+        viewModel.setGameFromGog(bundle.getString("name_game"));
+        viewModel.getGameFromGog().observe(getViewLifecycleOwner(), gameFromGog -> {
+            if(gameFromGog.getTotalGamesFound() > 0) {
+                binding.gogPrice.setText(gameFromGog.getProducts().get(0).getPrice().getFinalAmount() + " ₽");
+                slug[0] = gameFromGog.getProducts().get(0).getSlug();
+            }
+            else {
+                binding.gogPrice.setText("(==3");
+            }
+        });
+
         viewModel.setAboutGame(arr);
         viewModel.getAboutGame().observe(getViewLifecycleOwner(), games -> {
             if (games.get(0).getSuccess()){
-                binding.aboutGame.setText(games.get(0).getData().getShort_description());
+                binding.aboutGame.setText(games.get(0).getData().getShort_description() );
             }
             else {
                 binding.aboutGame.setText("Very interesting game!");
@@ -69,7 +83,13 @@ public class GamePageFragment extends Fragment {
         binding.steamBuyBtn.setOnClickListener(v -> {
             String ur = "https://store.steampowered.com/app/" + Integer.toString(bundle.getInt("id"));
             Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(ur));
-        v.getContext().startActivity(intent);});;
+            v.getContext().startActivity(intent);});;
+
+        binding.gogBuyBtn.setOnClickListener(v -> {
+            String ur = "https://www.gog.com/en/game/" + slug[0];
+            Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(ur));
+            v.getContext().startActivity(intent);});;
+
         binding.backBtn.setOnClickListener(v -> {
             if(bundle.getInt("where") == 1) {
                 NavHostFragment.findNavController(this).navigate(R.id.action_gamePageFragment_to_mainPageFragment);

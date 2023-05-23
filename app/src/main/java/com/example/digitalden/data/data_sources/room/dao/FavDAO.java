@@ -18,8 +18,8 @@ public interface FavDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(FavouriteEntity game);
 
-    @Query("DELETE FROM fav_table WHERE id_game=:idGame")
-    void delete(Integer idGame);
+    @Query("DELETE FROM fav_table WHERE name_game=:nameGame")
+    void delete(String nameGame);
 
     @Query("DELETE FROM fav_table")
     void deleteAll();

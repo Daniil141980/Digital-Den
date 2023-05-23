@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 import com.example.digitalden.data.data_sources.api.steam.SteamApiRetrofit;
+import com.example.digitalden.data.data_sources.api.steam.service.SteamAllGamesService;
 import com.example.digitalden.data.data_sources.api.steam.service.SteamService;
+import com.example.digitalden.data.models.AllGamesFromSteam;
 import com.example.digitalden.data.models.LeadersSales;
 import com.example.digitalden.data.models.OneGame;
 import com.example.digitalden.data.models.PriceGame;
@@ -16,13 +18,19 @@ import java.util.stream.Collectors;
 
 public class SteamRepository {
     private final SteamService steamService;
+    private final SteamAllGamesService steamAllGamesService;
 
     public SteamRepository() {
         this.steamService = SteamApiRetrofit.getInstance().getService();
+        this.steamAllGamesService = SteamApiRetrofit.getInstance().getServiceForAllGames();
     }
 
     public LiveData<LeadersSales> getLeaders() {
         return LiveDataUtils.callToBodyLiveData(steamService.getSalesLeader("ru", "russian"));
+    }
+
+    public LiveData<AllGamesFromSteam> getAllGames() {
+        return LiveDataUtils.callToBodyLiveData(steamAllGamesService.getAllGames());
     }
 
     public LiveData<List<OneGame>> getOneGame(List<Integer> appIds, PriceFilters... filters) {

@@ -35,7 +35,7 @@ public class FavouritesRepository {
 
     public void delete(FavouriteEntity game) {
         AppDatabase.databaseWriteExecutor.execute(() ->{
-            mGameDAO.delete(game.getIdGame());
+            mGameDAO.delete(game.getNameGame());
         });
     }
 }

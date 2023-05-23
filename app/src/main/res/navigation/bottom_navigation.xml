@@ -39,7 +39,20 @@
         android:id="@+id/fragment_free_giveaways"
         android:name="com.example.digitalden.ui.main.freeGame.FreeGiveawaysFragment"
         android:label="FragFreeGiveaways"
-        tools:layout="@layout/fragment_free_giveaways" />
+        tools:layout="@layout/fragment_free_giveaways">
+        <action
+            android:id="@+id/action_freeGiveawaysFragment_to_freeGiveawaysPageFragment"
+            app:destination="@id/fragment_free_giveaways_page"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_free_giveaways_page"
+        android:name="com.example.digitalden.ui.main.freeGame.gamefreepage.GameFreePageFragment"
+        android:label="FragFreeGamePage"
+        tools:layout="@layout/fragament_game_page_free">
+        <action
+            android:id="@+id/action_freeGiveawaysPageFragment_to_freeGiveawaysFragment"
+            app:destination="@id/fragment_free_giveaways"/>
+    </fragment>
     <fragment
         android:id="@+id/fragment_favourite"
         android:name="com.example.digitalden.ui.main.favourite.FavouriteFragment"

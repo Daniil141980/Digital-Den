@@ -20,4 +20,5 @@ public interface SteamService {
 
     @GET("api/featuredcategories/")
     Call<LeadersSales> getSalesLeader(@Query("cc") String price_country, @Query("l") String language);
+
 }
