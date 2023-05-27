@@ -19,6 +19,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.digitalden.R;
+import com.example.digitalden.data.models.AllGamesFromSteam;
+import com.example.digitalden.data.models.GameFromGog;
+import com.example.digitalden.data.models.OneGame;
 import com.example.digitalden.databinding.FragmentGamePageBinding;
 import com.example.digitalden.ui.main.gamepage.GamePageViewModel;
 
@@ -26,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GamePageFragment extends Fragment {
     private FragmentGamePageBinding binding;
@@ -44,7 +48,6 @@ public class GamePageFragment extends Fragment {
         Bundle bundle = this.getArguments();
         binding = FragmentGamePageBinding.inflate(inflater);
         binding.nameGame.setText(bundle.getString("name_game"));
-        binding.steamPrice.setText(bundle.getString("price") + " ₽");
         LiveData<Bitmap> liveData = getImage(bundle.getString("url"));
         liveData.observeForever(new Observer<Bitmap>() {
             @Override
@@ -55,49 +58,74 @@ public class GamePageFragment extends Fragment {
         });
 
         ArrayList<Integer> arr = new ArrayList<>();
-        arr.add(bundle.getInt("id"));
+        arr.add(bundle.getInt("id")); // не работает проверить на суперхот
 
 
         final String[] slug = {""};
+        final String[] about = {""};
         viewModel.setGameFromGog(bundle.getString("name_game"));
         viewModel.getGameFromGog().observe(getViewLifecycleOwner(), gameFromGog -> {
-            if(gameFromGog.getTotalGamesFound() > 0) {
-                binding.gogPrice.setText(gameFromGog.getProducts().get(0).getPrice().getFinalAmount() + " ₽");
-                slug[0] = gameFromGog.getProducts().get(0).getSlug();
+            String txt = "Not";
+            if (gameFromGog.getTotalGamesFound() > 0) {
+                for (GameFromGog.Products i: gameFromGog.getProducts()) {
+                    String name = i.getTitle().toLowerCase().replace(" ", "");
+                    String ourName = bundle.getString("name_game").toLowerCase().replace(" ", "");
+                    if (name.equals(ourName)) {
+                        txt = i.getPrice().getFinalAmount() + " ₽";
+                        slug[0] = i.getSlug();
+                        about[0] = i.getDeveloper();
+                    }
+                }
             }
-            else {
-                binding.gogPrice.setText("(==3");
-            }
+            binding.gogPrice.setText(txt);
         });
 
-        viewModel.setAboutGame(arr);
-        viewModel.getAboutGame().observe(getViewLifecycleOwner(), games -> {
-            if (games.get(0).getSuccess()){
-                binding.aboutGame.setText(games.get(0).getData().getShort_description() );
+        String ourName = bundle.getString("name_game").toLowerCase().replace(" ", "").replace("®", "").replace("™", "");
+        viewModel.getAllGames().observe(getViewLifecycleOwner(), allGamesFromSteam -> {
+            for (AllGamesFromSteam.Applist.Apps i: allGamesFromSteam.getApplist().getApps()) {
+                String name = i.getName().toLowerCase().replace(" ", "").replace("®", "").replace("™", "");
+                if (name.equals(ourName)) {
+                    arr.remove(0);
+                    arr.add(i.getAppid());
+                }
             }
-            else {
-                binding.aboutGame.setText("Very interesting game!");
-            }
+            viewModel.setAboutGame(arr);
+            viewModel.getAboutGame().observe(getViewLifecycleOwner(), games -> {
+                if(games != null) {
+                    if (games.get(0).getSuccess()) {
+                        binding.aboutGame.setText(games.get(0).getData().getShort_description());
+                        binding.steamPrice.setText(Integer.toString(games.get(0).getData().getPrice_overview().getFfinal() / 100) + " ₽");
+                    } else {
+                        binding.steamPrice.setText("Not");
+                        binding.aboutGame.setText("Разработчик " + about[0]);
+                    }
+                }
+            });
         });
+
+
 
         binding.steamBuyBtn.setOnClickListener(v -> {
-            String ur = "https://store.steampowered.com/app/" + Integer.toString(bundle.getInt("id"));
-            Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(ur));
-            v.getContext().startActivity(intent);});;
+            String ur = "https://store.steampowered.com/app/" + Integer.toString(arr.get(0));
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ur));
+            v.getContext().startActivity(intent);
+        });
+        ;
 
         binding.gogBuyBtn.setOnClickListener(v -> {
             String ur = "https://www.gog.com/en/game/" + slug[0];
-            Intent intent= new Intent(Intent.ACTION_VIEW, Uri.parse(ur));
-            v.getContext().startActivity(intent);});;
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(ur));
+            v.getContext().startActivity(intent);
+        });
+        ;
 
         binding.backBtn.setOnClickListener(v -> {
-            if(bundle.getInt("where") == 1) {
+            if (bundle.getInt("where") == 1) {
                 NavHostFragment.findNavController(this).navigate(R.id.action_gamePageFragment_to_mainPageFragment);
-            }
-            else {
+            } else {
                 NavHostFragment.findNavController(this).navigate(R.id.action_gamePageFragment_to_favouriteFragment);
             }
-            });
+        });
 
         return binding.getRoot();
     }

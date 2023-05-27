@@ -15,4 +15,21 @@
     <string name="steam">Steam</string>
     <string name="egs">EGS</string>
     <string name="gog">GOG</string>
+    <string name="about_subscribe">Подписка на приложение открывает доступ к большему количеству цифровых магазинов</string>
+    <string name="setting_text">Push-уведомления на акции</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
+    <string name="password_again">Повторите пароль</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="sign_in">Вход</string>
+    <string-array name="genre">
+        <item>simulation</item>
+        <item>action</item>
+        <item>role-playing</item>
+        <item>shooter</item>
+        <item>strategy</item>
+        <item>adventure</item>
+        <item>sports</item>
+        <item>racing</item>
+    </string-array>
 </resources>

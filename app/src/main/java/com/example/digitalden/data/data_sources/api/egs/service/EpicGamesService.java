@@ -10,4 +10,5 @@ import retrofit2.http.Query;
 public interface EpicGamesService {
     @GET("freeGamesPromotions")
         Call<FreeGames> getFreeGames(@Query("locale") String locale, @Query("country") String country);
+
 }

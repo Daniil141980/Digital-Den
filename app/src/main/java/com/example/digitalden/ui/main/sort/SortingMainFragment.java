@@ -1,4 +1,4 @@
-package com.example.digitalden.ui.main.sort.favourite;
+package com.example.digitalden.ui.main.sort;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,16 +13,15 @@ import androidx.navigation.fragment.NavHostFragment;
 
 import com.example.digitalden.R;
 import com.example.digitalden.databinding.FragmentSortingBinding;
-import com.example.digitalden.ui.main.sort.favourite.SortingFavouriteViewModel;
 
-public class SortingFavouriteFragment extends Fragment {
+public class SortingMainFragment extends Fragment {
     private FragmentSortingBinding binding;
-    private SortingFavouriteViewModel viewModel;
+    private SortingMainViewModel viewModel;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(SortingFavouriteViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SortingMainViewModel.class);
     }
 
     @Nullable
@@ -30,7 +29,7 @@ public class SortingFavouriteFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentSortingBinding.inflate(inflater);
         binding.backBtn.setOnClickListener(v -> {
-            NavHostFragment.findNavController(this).navigate(R.id.action_sortFavouriteFragment_to_favouriteFragment);});
+            NavHostFragment.findNavController(this).navigate(R.id.action_sortMainFragment_to_mainPageFragment);});
         return binding.getRoot();
     }
 }

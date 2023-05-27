@@ -15,31 +15,30 @@ import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.digitalden.R;
-import com.example.digitalden.data.data_sources.room.entites.FavouriteEntity;
 import com.example.digitalden.data.models.GameFromGog.Products;
 import com.example.digitalden.databinding.RecyclerItemGameBinding;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.List;
+import java.util.HashSet;
 import java.util.Set;
 
 public class MainPageSearchAdapter extends ListAdapter<Products, MainPageSearchAdapter.MainPageSearchViewHolder> {
-    private OnItemClickListener listenerFav;
+    private OnItemClickListenerFav listenerFav;
     private OnItemClickListener listenerElement;
-    private LiveData<List<FavouriteEntity>> gameFromDatabase;
-    private Set<Integer> gameId;
+    private Set<String> gameNameSet = new HashSet<>();
 
-    public void setGameId(Set<Integer> gameId) {
-        this.gameId = gameId;
+    public void setGameName(Set<String> gameNameSet) {
+        this.gameNameSet = gameNameSet;
+        notifyDataSetChanged();
     }
 
     public MainPageSearchAdapter(@NonNull DiffUtil.ItemCallback<Products> diffCallback) {
         super(diffCallback);
     }
 
-    public void setListenerFav(OnItemClickListener listenerFav) {
+    public void setListenerFav(OnItemClickListenerFav listenerFav) {
         this.listenerFav = listenerFav;
     }
 
@@ -58,8 +57,8 @@ public class MainPageSearchAdapter extends ListAdapter<Products, MainPageSearchA
     public void onBindViewHolder(MainPageSearchViewHolder holder, int position) {
         Products current = getItem(position);
         String gameName  = current.getTitle();
-        if (gameName.length() > 25) {
-            holder.binding.titleGame.setText(gameName.substring(0, 25));
+        if (gameName.length() > 22) {
+            holder.binding.titleGame.setText(gameName.substring(0, 22));
         }
         else {
             holder.binding.titleGame.setText(gameName);
@@ -74,10 +73,10 @@ public class MainPageSearchAdapter extends ListAdapter<Products, MainPageSearchA
                 liveData.removeObserver(this);
             }
         });
-        if (gameId.contains(current.getId())){
-            holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_for_click_abled);
+        if (gameNameSet.contains(current.getTitle().toLowerCase())){
+            holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_in);
         } else {
-            holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_for_click_disabled);
+            holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_out);
         }
         holder.binding.recyclerItem.setOnClickListener(v -> {
             if (listenerElement != null) {
@@ -91,11 +90,13 @@ public class MainPageSearchAdapter extends ListAdapter<Products, MainPageSearchA
         });
         holder.binding.favouriteBtn.setOnClickListener(v -> {
             if (listenerFav != null) {
-                listenerFav.onClick(current);
-                if (gameId.contains(current.getId())){
-                    holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_for_click_disabled);
+                listenerFav.onClick(gameNameSet.contains(current.getTitle().toLowerCase()), current);
+                if (gameNameSet.contains(current.getTitle().toLowerCase())){
+                    holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_out);
+                    gameNameSet.remove(current.getTitle().toLowerCase());
                 } else {
-                    holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_for_click_abled);
+                    holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_in);
+                    gameNameSet.add(current.getTitle().toLowerCase());
                 }
             }
         });
@@ -133,6 +134,10 @@ public class MainPageSearchAdapter extends ListAdapter<Products, MainPageSearchA
 
     public interface OnItemClickListener {
         void onClick(Products element);
+    }
+
+    public interface OnItemClickListenerFav {
+        void onClick(boolean flag, Products element);
     }
 
     static class MainPageSearchViewHolder extends RecyclerView.ViewHolder {

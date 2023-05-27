@@ -65,7 +65,7 @@ public class FreeGiveawaysAdapter extends ListAdapter<Elements, FreeGiveawaysAda
                 liveData.removeObserver(this);
             }
         });
-        holder.binding.favouriteBtn.setImageResource(R.drawable.favourite_disabled);
+        holder.binding.favouriteBtn.setVisibility(View.GONE);
 
 
         holder.binding.recyclerItem.setOnClickListener(v -> {

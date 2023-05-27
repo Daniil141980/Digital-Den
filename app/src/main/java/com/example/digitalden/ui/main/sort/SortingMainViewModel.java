@@ -1,4 +1,4 @@
-package com.example.digitalden.ui.main.sort.mainPage;
+package com.example.digitalden.ui.main.sort;
 
 import androidx.lifecycle.ViewModel;
 

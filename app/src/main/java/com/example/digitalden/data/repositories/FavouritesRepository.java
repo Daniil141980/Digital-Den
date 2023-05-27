@@ -1,13 +1,9 @@
 package com.example.digitalden.data.repositories;
 
 import android.app.Application;
-
 import androidx.lifecycle.LiveData;
-
 import com.example.digitalden.data.data_sources.room.dao.FavDAO;
-import com.example.digitalden.data.data_sources.room.dao.ItemDAO;
 import com.example.digitalden.data.data_sources.room.entites.FavouriteEntity;
-import com.example.digitalden.data.data_sources.room.entites.ItemEntity;
 import com.example.digitalden.data.data_sources.room.AppDatabase;
 
 import java.util.List;

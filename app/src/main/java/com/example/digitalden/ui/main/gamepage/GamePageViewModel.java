@@ -3,6 +3,7 @@ package com.example.digitalden.ui.main.gamepage;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.digitalden.data.models.AllGamesFromSteam;
 import com.example.digitalden.data.models.GameFromGog;
 import com.example.digitalden.data.models.OneGame;
 import com.example.digitalden.data.repositories.GogRepository;
@@ -16,10 +17,12 @@ public class GamePageViewModel extends ViewModel {
 
     private LiveData<List<OneGame>>  aboutGame;
     private LiveData<GameFromGog>  gameFromGog;
+    private  LiveData<AllGamesFromSteam> allGamesFromSteam;
 
     public GamePageViewModel() {
         steamRepository = new SteamRepository();
         gogRepository = new GogRepository();
+        allGamesFromSteam = steamRepository.getAllGames();
     }
 
 
@@ -36,5 +39,8 @@ public class GamePageViewModel extends ViewModel {
     }
     LiveData<GameFromGog> getGameFromGog() {
         return gameFromGog;
+    }
+    LiveData<AllGamesFromSteam> getAllGames() {
+        return allGamesFromSteam;
     }
 }

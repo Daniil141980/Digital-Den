@@ -16,8 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.digitalden.R;
 import com.example.digitalden.data.data_sources.room.entites.FavouriteEntity;
-import com.example.digitalden.data.data_sources.room.entites.ItemEntity;
-import com.example.digitalden.data.models.LeadersSales;
 import com.example.digitalden.databinding.RecyclerItemGameBinding;
 
 import java.io.IOException;
@@ -51,8 +49,8 @@ public class FavouriteAdapter extends ListAdapter<FavouriteEntity, FavouriteAdap
     public void onBindViewHolder(FavouriteViewHolder holder, int position) {
         FavouriteEntity current = getItem(position);
         String gameName  = current.getNameGame();
-        if (gameName.length() > 25) {
-            holder.binding.titleGame.setText(gameName.substring(0, 25));
+        if (gameName.length() > 22) {
+            holder.binding.titleGame.setText(gameName.substring(0, 22));
         }
         else {
             holder.binding.titleGame.setText(gameName);
@@ -67,7 +65,8 @@ public class FavouriteAdapter extends ListAdapter<FavouriteEntity, FavouriteAdap
                 liveData.removeObserver(this);
             }
         });
-        holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_for_click_abled);
+        holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_in);
+
 
         holder.binding.recyclerItem.setOnClickListener(v -> {
             if (listenerElement != null) {
@@ -82,6 +81,7 @@ public class FavouriteAdapter extends ListAdapter<FavouriteEntity, FavouriteAdap
         holder.binding.favouriteBtn.setOnClickListener(v -> {
             if (listenerFav != null) {
                 listenerFav.onClick(current);
+                holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_out);
             }
         });
 

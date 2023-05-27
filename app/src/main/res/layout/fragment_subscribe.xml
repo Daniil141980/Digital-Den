@@ -11,7 +11,7 @@
         android:id="@+id/top_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp"
+        android:padding="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,9 +33,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:fontFamily="@font/serif_regular"
+            android:fontFamily="@font/neoneon"
+            android:textFontWeight="900"
             android:textColor="@color/sea_100"
-            android:textSize="10pt"/>
+            android:textSize="12pt"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -44,7 +45,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/sans_regular"
         android:padding="16dp"
-        android:text="YOU NEED THIS SHIT"
+        android:text="@string/about_subscribe"
         android:textColor="@color/sea_100"
         android:textSize="10pt"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,11 +63,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="100dp"
-        android:background="@drawable/back_btn_buy"
+        android:background="@drawable/bg_btn"
         android:text="@string/pay"
         android:fontFamily="@font/neoneon"
         android:textStyle="bold"
         android:textColor="@color/gray_300"
+        android:textFontWeight="1000"
         android:textSize="20sp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragment_sorting_for_main"
-        android:name="com.example.digitalden.ui.main.sort.mainPage.SortingMainFragment"
+        android:name="com.example.digitalden.ui.main.sort.SortingMainFragment"
         android:label="SortingMainFragment"
         tools:layout="@layout/fragment_sorting">
         <action
@@ -59,9 +59,6 @@
         android:label="FragFavourite"
         tools:layout="@layout/fragment_favourite">
         <action
-            android:id="@+id/action_favouriteFragment_to_sortingFavFragment"
-            app:destination="@id/fragment_sorting_for_favourite"/>
-        <action
             android:id="@+id/action_favouriteFragment_to_gamePageFragment"
             app:destination="@id/fragment_game_page_favourite"/>
     </fragment>
@@ -72,15 +69,6 @@
         tools:layout="@layout/fragment_game_page">
         <action
             android:id="@+id/action_gamePageFragment_to_favouriteFragment"
-            app:destination="@id/fragment_favourite"/>
-    </fragment>
-    <fragment
-        android:id="@+id/fragment_sorting_for_favourite"
-        android:name="com.example.digitalden.ui.main.sort.favourite.SortingFavouriteFragment"
-        android:label="SortingFavouriteFragment"
-        tools:layout="@layout/fragment_sorting">
-        <action
-            android:id="@+id/action_sortFavouriteFragment_to_favouriteFragment"
             app:destination="@id/fragment_favourite"/>
     </fragment>
     <fragment

@@ -28,16 +28,12 @@ public class FavouriteFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewModel = new ViewModelProvider(this).get(FavouriteViewModel.class);
-
-
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentFavouriteBinding.inflate(inflater);
-        binding.sortingBtn.setOnClickListener(v -> {
-            NavHostFragment.findNavController(this).navigate(R.id.action_favouriteFragment_to_sortingFavFragment);});
         RecyclerView recyclerView = binding.gamesRecycler;
         adapter = new FavouriteAdapter(new FavouriteAdapter.WordDiff());
 
@@ -53,7 +49,7 @@ public class FavouriteFragment extends Fragment {
         });
 
         adapter.setListenerFav(element -> {
-            FavouriteEntity game = new FavouriteEntity(element.getNameGame(), element.getIdGame(), element.getImgUrl(),
+            FavouriteEntity game = new FavouriteEntity(element.getNameGame().toLowerCase(), element.getIdGame(), element.getImgUrl(),
                     element.getSalePercent(), element.getBasePrice());
             viewModel.delete(game);
         });

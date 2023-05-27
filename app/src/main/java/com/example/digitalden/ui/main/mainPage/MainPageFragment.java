@@ -28,7 +28,7 @@ public class MainPageFragment extends Fragment {
     private MainPageViewModel viewModel;
     private MainPageAdapter adapter;
     private MainPageSearchAdapter adapterSearch;
-    private Set<Integer> gameId;
+    private Set<String> gameNameSet;
     RecyclerView recyclerView;
     SearchView searchView;
 
@@ -46,12 +46,12 @@ public class MainPageFragment extends Fragment {
             NavHostFragment.findNavController(this).navigate(R.id.action_mainPageFragment_to_sortingMainFragment);});
 
         recyclerView = binding.gamesRecycler;
-        gameId = new HashSet<Integer>();
+        gameNameSet = new HashSet<>();
         viewModel.getGameFromDatabase().observe(getViewLifecycleOwner(), games->{
             for (FavouriteEntity i: games) {
-                gameId.add(i.getIdGame());
+                gameNameSet.add(i.getNameGame());
             }
-
+            adapter.setGameName(gameNameSet);
         });
 
         adapter = new MainPageAdapter(new MainPageAdapter.WordDiff());
@@ -67,12 +67,12 @@ public class MainPageFragment extends Fragment {
             bundle.putInt("where", 1);
             NavHostFragment.findNavController(this).navigate(R.id.action_mainPageFragment_to_gamePageFragment, bundle);
         });
-        adapter.setGameId(gameId);
 
-        adapter.setListenerFav(element -> {
-            FavouriteEntity game = new FavouriteEntity(element.getName(), element.getId(), element.getHeader_image(),
+
+        adapter.setListenerFav((flag, element) -> {
+            FavouriteEntity game = new FavouriteEntity(element.getName().toLowerCase(), element.getId(), element.getHeader_image(),
                     Integer.toString(element.getDiscount_percent()), element.getOriginal_price());
-            if (gameId.contains(element.getId())){
+            if (flag){
                 viewModel.delete(game);
             } else {
                 viewModel.insert(game);
@@ -86,6 +86,7 @@ public class MainPageFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+
 
         searchView = binding.searchGame;
         searchView.clearFocus();
@@ -106,6 +107,10 @@ public class MainPageFragment extends Fragment {
     }
 
     private void filterRecycle(String text) {
+        if (text.isEmpty()){
+            binding.gamesRecycler.setAdapter(adapter);
+            return;
+        }
         adapterSearch.setListenerElement(element -> {
             Bundle bundle = new Bundle();
             bundle.putString("name_game", element.getTitle());
@@ -116,18 +121,17 @@ public class MainPageFragment extends Fragment {
             bundle.putInt("where", 1);
             NavHostFragment.findNavController(this).navigate(R.id.action_mainPageFragment_to_gamePageFragment, bundle);
         });
-        adapterSearch.setGameId(gameId);
+        adapterSearch.setGameName(gameNameSet);
 
-        adapterSearch.setListenerFav(element -> {
-            FavouriteEntity game = new FavouriteEntity(element.getTitle(), element.getId(),
+        adapterSearch.setListenerFav((flag, element) -> {
+            FavouriteEntity game = new FavouriteEntity(element.getTitle().toLowerCase(), element.getId(),
                     "https:" + element.getImage() + ".jpg",
                     Integer.toString(element.getPrice().getDiscountPercentage()), Integer.parseInt(element.getPrice().getBaseAmount()));
-            if (gameId.contains(element.getId())){
+            if (flag){
                 viewModel.delete(game);
             } else {
                 viewModel.insert(game);
             }
-
         });
         viewModel.setGameFromGogLiveData(text);
 
@@ -144,4 +148,16 @@ public class MainPageFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        gameNameSet = new HashSet<>();
+        viewModel.getGameFromDatabase().observe(getViewLifecycleOwner(), games->{
+            for (FavouriteEntity i: games) {
+                gameNameSet.add(i.getNameGame());
+            }
+            adapter.setGameName(gameNameSet);
+            adapterSearch.setGameName(gameNameSet);
+        });
+    }
 }

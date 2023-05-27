@@ -30,7 +30,7 @@ public class CardFragment extends Fragment {
         binding = FragmentCardBinding.inflate(inflater);
         binding.back.setOnClickListener(v -> {
             NavHostFragment.findNavController(this).navigate(R.id.action_cardFragment_to_subscribeFragment);});
-        binding.payBtn.setOnClickListener(v -> {
+        binding.buyBtn.setOnClickListener(v -> {
             NavHostFragment.findNavController(this).navigate(R.id.action_cardFragment_to_okFragment);});
         return binding.getRoot();
     }

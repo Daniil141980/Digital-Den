@@ -5,13 +5,10 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import com.example.digitalden.data.models.Item;
-
 @Entity(tableName = "fav_table")
 public class FavouriteEntity {
-    @PrimaryKey(autoGenerate = true)
-    public int id;
-
+    @PrimaryKey
+    @NonNull
     @ColumnInfo(name = "name_game")
     private String nameGame;
 
@@ -27,7 +24,7 @@ public class FavouriteEntity {
     @ColumnInfo(name = "base_price")
     private Integer basePrice;
 
-    public FavouriteEntity() {}
+//    public FavouriteEntity() {}
 
     public FavouriteEntity(@NonNull String nameGame, @NonNull Integer idGame, @NonNull String imgUrl, @NonNull String salePercent, @NonNull Integer basePrice) {
         this.nameGame = nameGame;

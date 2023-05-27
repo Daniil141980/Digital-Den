@@ -6,7 +6,7 @@
     android:layout_height="176dp"
     android:id="@+id/recycler_item"
     android:paddingEnd="16dp"
-    android:background="@drawable/background_item_game"
+    android:background="@drawable/bg_item_game"
     android:layout_marginBottom="16dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginStart="8dp"
@@ -22,7 +22,6 @@
         android:fontFamily="@font/neoneon"
         android:textFontWeight="1000"
         android:gravity="start"
-        android:text="@string/example_name_game"
         android:textColor="@color/sea_100"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,7 +31,7 @@
         android:id="@+id/favourite_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/favorite_for_click_disabled"
+        android:src="@drawable/favorite_out"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="8dp"/>
@@ -52,34 +51,31 @@
         android:id="@+id/buy_btn"
         android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_btn_item_game"
+        android:background="@drawable/bg_btn_item_game"
         android:fontFamily="@font/neoneon"
+        android:layout_marginBottom="16dp"
         android:gravity="center"
-        android:text="Sale 10%"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/sea_100"
         android:textFontWeight="1000"
         app:layout_constraintBottom_toTopOf="@id/base_price"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/image_game"
-        app:layout_constraintTop_toBottomOf="@id/favourite_btn"
-        />
+        app:layout_constraintStart_toEndOf="@id/image_game" />
 
     <TextView
         android:id="@+id/base_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/fonts_sans"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="Базовая цена: 1000 Р"
         android:textColor="@color/sea_100"
         android:textSize="6pt"
         android:textStyle="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/image_game"
-        app:layout_constraintTop_toBottomOf="@id/buy_btn"/>
+        app:layout_constraintStart_toEndOf="@id/image_game"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

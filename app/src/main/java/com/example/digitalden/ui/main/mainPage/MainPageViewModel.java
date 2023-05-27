@@ -6,8 +6,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.digitalden.data.data_sources.room.entites.FavouriteEntity;
-import com.example.digitalden.data.data_sources.room.entites.ItemEntity;
-import com.example.digitalden.data.models.AllGamesFromSteam;
 import com.example.digitalden.data.models.GameFromGog;
 import com.example.digitalden.data.models.LeadersSales;
 import com.example.digitalden.data.repositories.FavouritesRepository;
@@ -50,6 +48,6 @@ public class MainPageViewModel extends AndroidViewModel {
 
     LiveData<List<FavouriteEntity>> getGameFromDatabase() { return gameFromDatabase; }
     public void insert(FavouriteEntity game) { favouritesRepository.insert(game); }
-    public void delete(FavouriteEntity game) {favouritesRepository.delete(game);}
+    public void delete(FavouriteEntity game) { favouritesRepository.delete(game);}
 
 }
