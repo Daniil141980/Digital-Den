@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "205271272071",
+    "project_id": "digital-den-bd",
+    "storage_bucket": "digital-den-bd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:205271272071:android:abf0640f7f3255e64b8622",
+        "android_client_info": {
+          "package_name": "com.example.digitalden"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8OgUyKDy606cTHGYGKG9p55a-EqgpWQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

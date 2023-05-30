@@ -1,4 +1,4 @@
-package com.example.digitalden.ui.main.favourite;
+package com.example.digitalden.ui.main.mainPage;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -9,28 +9,36 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.DiffUtil;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.digitalden.R;
-import com.example.digitalden.data.data_sources.room.entites.FavouriteEntity;
+import com.example.digitalden.data.models.FilteredGames.Products;
 import com.example.digitalden.databinding.RecyclerItemGameBinding;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashSet;
+import java.util.Set;
 
-public class FavouriteAdapter extends ListAdapter<FavouriteEntity, FavouriteAdapter.FavouriteViewHolder> {
-    private OnItemClickListener listenerFav;
+public class MainPageFilteredAdapter extends ListAdapter<Products, MainPageFilteredAdapter.MainPageFilteredViewHolder> {
+    private OnItemClickListenerFav listenerFav;
     private OnItemClickListener listenerElement;
+    private Set<String> gameNameSet = new HashSet<>();
 
-    public FavouriteAdapter(@NonNull DiffUtil.ItemCallback<FavouriteEntity> diffCallback) {
+    public void setGameName(Set<String> gameNameSet) {
+        this.gameNameSet = gameNameSet;
+        notifyDataSetChanged();
+    }
+
+    public MainPageFilteredAdapter(@NonNull DiffUtil.ItemCallback<Products> diffCallback) {
         super(diffCallback);
     }
 
-    public void setListenerFav(OnItemClickListener listenerFav) {
+    public void setListenerFav(OnItemClickListenerFav listenerFav) {
         this.listenerFav = listenerFav;
     }
 
@@ -39,25 +47,24 @@ public class FavouriteAdapter extends ListAdapter<FavouriteEntity, FavouriteAdap
     }
 
     @Override
-    public FavouriteViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MainPageFilteredViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         RecyclerItemGameBinding binding = RecyclerItemGameBinding.inflate(inflater, parent, false);
-        return new FavouriteViewHolder(binding.getRoot());
+        return new MainPageFilteredViewHolder(binding.getRoot());
     }
 
     @Override
-    public void onBindViewHolder(FavouriteViewHolder holder, int position) {
-        FavouriteEntity current = getItem(position);
-        String gameName  = current.getNameGame();
+    public void onBindViewHolder(MainPageFilteredViewHolder holder, int position) {
+        Products current = getItem(position);
+        String gameName = current.getTitle();
         if (gameName.length() > 22) {
             holder.binding.titleGame.setText(gameName.substring(0, 22));
-        }
-        else {
+        } else {
             holder.binding.titleGame.setText(gameName);
         }
-        holder.binding.buyBtn.setText("SALE " + current.getSalePercent() +"%");
-        holder.binding.basePrice.setText("Базовая цена:  " + current.getBasePrice() +" Р");
-        LiveData<Bitmap> liveData = getImage(current.getImgUrl());
+        holder.binding.buyBtn.setText("SALE " + current.getPrice().getDiscountPercentage() + "%");
+        holder.binding.basePrice.setText("Базовая цена:  " + current.getPrice().getBaseAmount() + " ₽");
+        LiveData<Bitmap> liveData = getImage("https:" + current.getImage() + ".jpg");
         liveData.observeForever(new Observer<Bitmap>() {
             @Override
             public void onChanged(Bitmap bitmap) {
@@ -65,9 +72,11 @@ public class FavouriteAdapter extends ListAdapter<FavouriteEntity, FavouriteAdap
                 liveData.removeObserver(this);
             }
         });
-        holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_in);
-
-
+        if (gameNameSet.contains(current.getTitle().toLowerCase())) {
+            holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_in);
+        } else {
+            holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_out);
+        }
         holder.binding.recyclerItem.setOnClickListener(v -> {
             if (listenerElement != null) {
                 listenerElement.onClick(current);
@@ -80,8 +89,14 @@ public class FavouriteAdapter extends ListAdapter<FavouriteEntity, FavouriteAdap
         });
         holder.binding.favouriteBtn.setOnClickListener(v -> {
             if (listenerFav != null) {
-                listenerFav.onClick(current);
-                holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_out);
+                listenerFav.onClick(gameNameSet.contains(current.getTitle().toLowerCase()), current);
+                if (gameNameSet.contains(current.getTitle().toLowerCase())) {
+                    holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_out);
+                    gameNameSet.remove(current.getTitle().toLowerCase());
+                } else {
+                    holder.binding.favouriteBtn.setImageResource(R.drawable.favorite_in);
+                    gameNameSet.add(current.getTitle().toLowerCase());
+                }
             }
         });
 
@@ -102,31 +117,37 @@ public class FavouriteAdapter extends ListAdapter<FavouriteEntity, FavouriteAdap
         return liveData;
     }
 
-    static class WordDiff extends DiffUtil.ItemCallback<FavouriteEntity> {
+    static class WordDiff extends DiffUtil.ItemCallback<Products> {
 
         @Override
-        public boolean areItemsTheSame(@NonNull FavouriteEntity oldItem, @NonNull FavouriteEntity newItem) {
+        public boolean areItemsTheSame(@NonNull Products oldItem, @NonNull Products newItem) {
             return oldItem == newItem;
         }
 
         @Override
-        public boolean areContentsTheSame(@NonNull FavouriteEntity oldItem, @NonNull FavouriteEntity newItem) {
-            return oldItem.getIdGame().equals(newItem.getIdGame());
+        public boolean areContentsTheSame(@NonNull Products oldItem, @NonNull Products newItem) {
+            return oldItem.getTitle().equals(newItem.getTitle());
         }
     }
 
+
     public interface OnItemClickListener {
-        void onClick(FavouriteEntity element);
+        void onClick(Products element);
     }
 
-    static class FavouriteViewHolder extends RecyclerView.ViewHolder {
+    public interface OnItemClickListenerFav {
+        void onClick(boolean flag, Products element);
+    }
+
+    static class MainPageFilteredViewHolder extends RecyclerView.ViewHolder {
         private final RecyclerItemGameBinding binding;
 
-        private FavouriteViewHolder(View itemView) {
+        private MainPageFilteredViewHolder(View itemView) {
             super(itemView);
             binding = RecyclerItemGameBinding.bind(itemView);
 
         }
 
     }
+
 }

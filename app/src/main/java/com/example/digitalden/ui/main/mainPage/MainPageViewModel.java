@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.digitalden.data.data_sources.room.entites.FavouriteEntity;
+import com.example.digitalden.data.models.FilteredGames;
 import com.example.digitalden.data.models.GameFromGog;
 import com.example.digitalden.data.models.LeadersSales;
 import com.example.digitalden.data.repositories.FavouritesRepository;
@@ -22,6 +23,7 @@ public class MainPageViewModel extends AndroidViewModel {
     private final LiveData<LeadersSales>  mAllGames;
     private final LiveData<List<FavouriteEntity>> gameFromDatabase;
     private LiveData<GameFromGog> gameFromGogLiveData;
+    private LiveData<FilteredGames> filteredGamesLiveData;
 
     public MainPageViewModel(Application application) {
         super(application);
@@ -36,6 +38,14 @@ public class MainPageViewModel extends AndroidViewModel {
 
     void setGameFromGogLiveData(String text) {
         gameFromGogLiveData = gogRepository.getGameGog(text);
+    }
+
+    void setFilteredGamesLiveData(String category) {
+        filteredGamesLiveData = gogRepository.getFilteredGame(category);
+    }
+
+    public LiveData<FilteredGames> getFilteredGamesLiveData() {
+        return filteredGamesLiveData;
     }
 
     LiveData<GameFromGog> getGameFromGogLiveData() {

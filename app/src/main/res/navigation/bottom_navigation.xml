@@ -88,6 +88,9 @@
         <action
             android:id="@+id/action_profileFragment_to_aboutAppFragment"
             app:destination="@id/about_app_fragment"/>
+        <action
+            android:id="@+id/action_profileFragment_to_signOutFragment"
+            app:destination="@id/fragment_sign_out"/>
     </fragment>
     <fragment
         android:id="@+id/fragment_sign_in"
@@ -100,6 +103,9 @@
         <action
             android:id="@+id/action_signInFragment_to_signUpFragment"
             app:destination="@id/fragment_sign_up"/>
+        <action
+            android:id="@+id/action_signInFragment_to_signOutFragment"
+            app:destination="@id/fragment_sign_out"/>
     </fragment>
     <fragment
         android:id="@+id/fragment_sign_up"
@@ -112,6 +118,18 @@
         <action
             android:id="@+id/action_signUpFragment_to_signInFragment"
             app:destination="@id/fragment_sign_in"/>
+        <action
+            android:id="@+id/action_signUpFragment_to_signOutFragment"
+            app:destination="@id/fragment_sign_out"/>
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_sign_out"
+        android:name="com.example.digitalden.ui.main.profile.account.signout.SignOutFragment"
+        android:label="SignOutFragment"
+        tools:layout="@layout/fragment_sign_out">
+        <action
+            android:id="@+id/action_signOutFragment_to_profileFragment"
+            app:destination="@id/fragment_profile"/>
     </fragment>
 
     <fragment

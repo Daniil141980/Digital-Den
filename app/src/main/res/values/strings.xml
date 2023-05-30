@@ -22,14 +22,6 @@
     <string name="password_again">Повторите пароль</string>
     <string name="sign_up">Регистрация</string>
     <string name="sign_in">Вход</string>
-    <string-array name="genre">
-        <item>simulation</item>
-        <item>action</item>
-        <item>role-playing</item>
-        <item>shooter</item>
-        <item>strategy</item>
-        <item>adventure</item>
-        <item>sports</item>
-        <item>racing</item>
-    </string-array>
+    <string name="find">Найти</string>
+    <string name="sign_out">Выйти</string>
 </resources>

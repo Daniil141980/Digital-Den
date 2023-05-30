@@ -40,7 +40,7 @@ public class FavouriteFragment extends Fragment {
         adapter.setListenerElement(element -> {
             Bundle bundle = new Bundle();
             bundle.putString("name_game", element.getNameGame());
-            int price = element.getBasePrice() / 100;
+            int price = element.getBasePrice();
             bundle.putString("price", Integer.toString(price));
             bundle.putString("url", element.getImgUrl());
             bundle.putInt("id", element.getIdGame());
