@@ -48,7 +48,7 @@ public class SignUpFragment extends Fragment {
                 viewModel.registration(email, password);
                 viewModel.getRegistrationSuccess().observe(getViewLifecycleOwner(), l -> {
                     if (Boolean.TRUE.equals(viewModel.getRegistrationSuccess().getValue())){
-                        NavHostFragment.findNavController(SignUpFragment.this).navigate(R.id.action_signUpFragment_to_signOutFragment);
+                        NavHostFragment.findNavController(SignUpFragment.this).navigate(R.id.fragment_sign_out);
                     }
                     else{
                         Toast.makeText(getContext(), "Ошибка регистрации", Toast.LENGTH_SHORT).show();

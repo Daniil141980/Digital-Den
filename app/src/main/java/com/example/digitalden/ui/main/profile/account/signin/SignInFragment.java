@@ -49,8 +49,8 @@ public class SignInFragment extends Fragment {
                 viewModel.getSignInSuccess().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
                     @Override
                     public void onChanged(Boolean aBoolean) {
-                        if (Boolean.TRUE.equals(viewModel.getSignInSuccess().getValue())){
-                            NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.action_signInFragment_to_signOutFragment);
+                        if (aBoolean){
+                            NavHostFragment.findNavController(SignInFragment.this).navigate(R.id.fragment_sign_out);
                         }
                         else{
                             Toast.makeText(getContext(), "Ошибка авторизации", Toast.LENGTH_SHORT).show();
